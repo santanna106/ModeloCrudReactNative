@@ -1,10 +1,18 @@
-import React from 'react';
+import React,{useState} from 'react';
 import {SafeAreaView,Text} from 'react-native';
 
-export const UserForm = () => {
+interface UserFormProps {
+    route:any;
+    navigation:any;
+}
+
+export const UserForm:React.FC<UserFormProps> = ({route,navigation}:UserFormProps) => {
+
+    const [user,setUser] = useState(route.params? route.params:{})
+
     return (
         <SafeAreaView>
-            <Text>User Form</Text>
+            <Text>{user.id}</Text>
         </SafeAreaView>
     );
 };
