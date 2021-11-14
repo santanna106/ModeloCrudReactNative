@@ -1,6 +1,7 @@
-import React,{useState} from 'react';
+import React,{useState,useContext} from 'react';
 import {SafeAreaView,StyleSheet,Text,Button,TextInput} from 'react-native';
 
+import UserContext from '../../context/UserContext';
 
 
 type User = {
@@ -18,6 +19,7 @@ interface UserFormProps {
 export const UserForm:React.FC<UserFormProps> = ({route,navigation}:UserFormProps) => {
 
     const [user,setUser] = useState<User>(route.params? route.params:{})
+    const {dispatch} =  useContext(UserContext);
 
     return (
         <SafeAreaView style={styles.form}>
@@ -45,6 +47,10 @@ export const UserForm:React.FC<UserFormProps> = ({route,navigation}:UserFormProp
             <Button
                 title="Salvar"
                 onPress={() => {
+                    dispatch({
+                        type:user.id ? 'USER_UPDATE' : 'USER_CREATE',
+                        playload:user
+                    })
                     navigation.goBack();
                 }}
              />

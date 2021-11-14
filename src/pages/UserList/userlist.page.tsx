@@ -17,10 +17,9 @@ interface UserListProps {
 }
 
 
-
 export const UserList : React.FC<UserListProps> = ({navigation,usersP} :UserListProps ) => {
 
-    const {state} =  useContext(UserContext);
+    const {state,dispatch} =  useContext(UserContext);
 
     const confirmUserDeletion = (user:User) => {
         Alert.alert("Excluir Usuário","Deseja excluir o usuário?",
@@ -28,7 +27,10 @@ export const UserList : React.FC<UserListProps> = ({navigation,usersP} :UserList
                 {
                     text:"sim",
                     onPress() {
-                        console.warn('delete' + user.id)
+                        dispatch({
+                            type:'USER_DELETE',
+                            playload:{...user},
+                        })
                     }
                 }
                 ,{
