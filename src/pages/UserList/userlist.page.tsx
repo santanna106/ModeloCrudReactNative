@@ -1,8 +1,6 @@
-import { NavigationContainer } from '@react-navigation/native';
 import React,{useContext} from 'react';
 import {FlatList, SafeAreaView,Alert,View} from 'react-native';
 import { ListItem,Avatar,Button,Icon } from 'react-native-elements';
-import {users} from '../../data/users';
 
 import UserContext from '../../context/UserContext';
 
@@ -22,7 +20,7 @@ interface UserListProps {
 
 export const UserList : React.FC<UserListProps> = ({navigation,usersP} :UserListProps ) => {
 
-    useContext(UserContext)
+    const {state} =  useContext(UserContext);
 
     const confirmUserDeletion = (user:User) => {
         Alert.alert("Excluir Usuário","Deseja excluir o usuário?",
@@ -77,7 +75,7 @@ export const UserList : React.FC<UserListProps> = ({navigation,usersP} :UserList
         <SafeAreaView>
             <FlatList
                 keyExtractor={user => user.id.toString()}
-                data={users} 
+                data={state.users} 
                 renderItem= { ({ item }: { item: User }) => 
                     getUserItem(item)
                 }
